@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_review_key">
+
+	<insert id="insert" parameterType="b_review_key">
+		insert into B_REVIEW_KEY values(b_review_key_seq.nextval, #{b_review_key_name})
+	</insert>
+	
+	<update id="update" parameterType="b_review_key">
+		update B_REVIEW_KEY set b_review_key_name = #{b_review_key_name}
+	</update>
+	
+	<delete id="deleteB_Review_Key" parameterType="int">
+		delete B_REVIEW_KEY where b_review_key_seq = #{b_review_key_seq}
+	</delete>
+	
+	<select id="selectB_ReviewKeyList" resultType="b_review_key">
+		select * from B_REVIEW_KEY order by b_review_key_seq
+	</select>
+	
+	<select id="selectB_Review_Key_Name" resultType="String" parameterType="int">
+		select b_review_key_name from B_REVIEW_KEY where b_review_key_seq = #{b_review_key_seq}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

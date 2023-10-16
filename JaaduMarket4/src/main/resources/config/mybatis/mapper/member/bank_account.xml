@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bank_account">
+
+	<insert id="insert" parameterType="bank_account">
+		insert into bank_account values(bank_account_seq.nextval, #{m_seq}, #{bank_seq}, #{bank_account_num}, 0)
+	</insert>
+	
+	<update id="chargePoint" parameterType="bank_account">
+		update bank_account set bank_point=bank_point+${bank_point} where m_seq=#{m_seq}
+	</update>
+	
+	<update id="accountUpdate" parameterType="bank_account">
+		update bank_account set bank_seq=#{bank_seq}, bank_account_num=#{bank_account_num} where bank_account_seq=#{bank_account_seq}
+	</update>
+	
+	<select id="accountOne" parameterType="int" resultType="bank_account">
+		select c.*, b.bank_name from bank_account c, bank b where m_seq=#{m_seq} and c.bank_seq=b.bank_seq
+	</select>
+	
+	<!-- 서로 당근페이 사용하는지 여부 -->
+	<select id="payUse" parameterType="bank_account" resultType="int">
+		select count(*) from bank_account where m_seq in (#{m_seq}, #{seller_seq})
+	</select>
+	
+	<select id="myPoint" parameterType="int" resultType="int">
+		select bank_point from bank_account where m_seq=#{m_seq}
+	</select>
+	
+	<update id="paySome" parameterType="bank_account">
+		update bank_account set bank_point=#{bank_point} where m_seq=#{m_seq}
+	</update>
+	
+	<update id="sellSome" parameterType="bank_account">
+		update bank_account set bank_point=bank_point + #{bank_point} where m_seq=#{m_seq}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

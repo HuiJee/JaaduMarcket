@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jcate">
+
+ <insert id="insert" parameterType="jcate">
+    insert into j_cate values (j_cate_seq.nextval, #{j_cate_name})
+  </insert>
+  
+  <select id="selectOne" parameterType="int" resultType="jcate">
+   select J_j_cate_name from j_cate
+    where j_cate_seq = #{j_cate_seq}
+  </select>
+  
+  <select id="selectAllJ_Cate" resultType="jcate">
+    select *  from j_cate order by j_cate_seq
+  </select>
+  <!-- 하는 일 이름으로 시퀀스 뽑기 -->
+  <select id="getJcateSeq" parameterType="String" resultType="int">
+  select j_cate_seq from j_cate where j_cate_name like CONCAT('%', #{j_cate_name}, '%')
+  </select>
+  
+  <update id="update" parameterType="jcate">
+    UPDATE J_CATE
+    SET J_CATE_NAME = #{J_CATE_NAME}
+    WHERE J_CATE_SEQ = #{J_CATE_SEQ}
+  </update>
+  
+  <delete id="deletes" parameterType="int">
+    DELETE FROM J_CATE
+    WHERE J_CATE_SEQ = #{J_CATE_SEQ}
+  </delete>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

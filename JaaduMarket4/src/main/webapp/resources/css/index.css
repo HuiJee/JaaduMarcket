@@ -1,0 +1,270 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+a {
+	text-decoration: : none;
+	color: inherit;
+}
+
+
+
+.menu_wrap .dep1{
+	font-size: 0;
+}
+.menu_wrap .dep1 > li {
+	display : inline-block;
+	width : 150px;
+	vertical-align:top;
+	background: #fff;
+	text-align: center;
+	font-size: 20px
+	
+}
+
+/*dep1 block과 동일한 사이즈로 설정*/
+.menu_wrap .dep2 li { 
+  display: block;
+  width: 150px; /* dep1의 li와 동일한 너비로 설정 */
+  height: 40px; /* dep1의 li와 동일한 높이로 설정 */
+  line-height: 40px; /* 요소 내용의 수직 정렬을 위해 사용합니다 */
+  text-align: center; /* 요소 내용의 가로 정렬을 위해 사용합니다 */
+}
+
+
+.menu_wrap .dep1 > li >a {
+	display:block;
+	padding: 10px 0;
+	text-decoration: none;
+}
+
+
+
+.menu_wrap .dep2{
+	 position: absolute;
+	display:none;
+	background: #fff;
+	  z-index: 2;
+}  
+
+
+
+
+.menu_wrap .dep1 > li:hover > a {
+	
+	color: #C71585;
+}
+
+.menu_wrap .dep1 > li:hover > .dep2{
+	display:block;
+	
+		
+}
+
+.menu_wrap .dep2 a{
+	display: block;
+	padding: :10px 0;
+	    text-decoration: none;
+	   
+	   
+}
+
+.menu_wrap .dep2 a:hover {
+	text-decoration: underline;
+	color: #C71585;
+}
+#header {
+	
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+}
+
+
+#body {
+  height: 100%;
+  width: 1424px;
+  margin: 0 auto;
+  padding-bottom: 24px;
+  background-color:#FFF0F5;
+  
+}
+
+
+
+#banner {
+	position: relative;
+  z-index: 1;
+  height: 200px;
+  background-color: yellow;
+}
+
+#header-area {
+  width: 1024px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  
+}
+
+.header-area > .menu_wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+}
+
+#header-area > img {
+	
+  width:150px;
+  height:60px;
+}
+
+#my-account {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 80px;
+}
+
+#my-account img {
+    width: 24px;
+    margin-left: 8px;
+}
+
+
+
+#my-account a {
+    text-decoration: none;
+    color: #000000; /* 기본 글자색 (검정) */
+    font-size: 20px;
+}
+
+#my-account a:hover {
+    color: #C71585; /* 마우스를 올렸을 때의 글자색 */
+}
+
+
+#banner > img {
+
+  width: 100%;
+  height: 300px;
+}
+
+#body > h1 {
+  margin-top: 150px;
+  
+}
+
+#product-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card {
+  width: 180px;
+  height: 300px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 210px;
+  margin-top: 0 auto; /* margin-top 속성을 사용하여 .product-img의 상단 여백을 조정-배너 아래로 위치 이동 시키기 위해*/
+ 
+}
+
+.product-contents {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.product-name {
+  font-size: 14px;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.product-seller {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.product-avatar {
+  width: 24px;
+}
+#more{
+	text-decoration: none;
+    color: #000000; /* 기본 글자색 (검정) */
+    font-size: 20px;
+	
+}
+
+#more:hover {
+	 color: #C71585;
+}
+
+#footer-area1 {
+	width: 1024px;
+	height: 20%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 20px;
+	text-align: center;
+	padding: 30;
+	margin-right: 30px;
+}
+
+#footer {
+	color: gray;
+	height: 150px;
+	display: flex;
+	border-top: 1px solid gray;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#footer-area1 a {
+	color: gray;
+	 position: relative;
+}
+
+
+#footer-area1 a:not(:last-child)::after {
+  content: "|";
+  margin: 0 30px; /* 원하는 간격 값으로 수정 */
+  /*#footer-area1 내의 링크 요소들 중 마지막 요소를 제외한 요소들에게
+   ::after 가상 요소를 추가하고, | 문자를 콘텐츠로 설정. 
+    margin 속성을 사용하여 | 사이의 간격을 조절*/
+}
+
+#footer-area2 {
+	width: 1024px;
+	height: 60%;
+	font: 14px "malgun gothic";
+	text-align: center;
+}

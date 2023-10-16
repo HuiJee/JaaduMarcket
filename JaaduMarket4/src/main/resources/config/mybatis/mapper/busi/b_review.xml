@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_review">
+
+
+	<insert id="insert" parameterType="b_review">
+		insert into B_REVIEW values(b_review_seq.nextval, #{busi_seq}, #{m_seq}, #{b_review_key_seq}, #{b_review_content}, SYSDATE)
+	</insert>
+
+	<update id="update" parameterType="b_review">
+		update B_REVIEW set b_review_key_seq = #{b_review_key_seq}, b_review_content = #{b_review_content}, b_review_date = SYSDATE where b_review_seq = #{b_review_seq}
+	</update>
+	
+	<delete id="deleteB_Review" parameterType="int">
+		delete B_REVIEW where b_review_seq = #{b_review_seq}
+	</delete>
+	
+	<select id="selectB_Review_List" resultType="b_review" parameterType="int">
+		select M.m_img, M.m_nickname, B.b_review_date, B.b_review_content, A.Addr3_name, B.b_review_seq
+		 from MEMBER M, B_REVIEW B, ADDR3 A
+		 where M.m_seq = B.m_seq
+		 and M.addr3_no = A.addr3_no
+		 and B.busi_seq = #{busi_seq}
+	</select>
+	
+	<select id="selectB_Review_One" resultType="b_review" parameterType="int">
+		select M.m_img, M.m_nickname, M.addr3_no, B.b_review_date, B.b_review_content, B.b_review_key_seq
+		 from MEMBER M, B_REVIEW B
+		 where M.m_seq = B.m_seq
+		 and B.b_review_seq = #{b_review_seq}
+	</select>
+	
+	<select id="maxReview_seq" resultType="int">
+		select max(b_review_seq) from B_REVIEW
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

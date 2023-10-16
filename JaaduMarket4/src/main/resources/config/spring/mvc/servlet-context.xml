@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<context:component-scan
+		base-package="com.increpas.jaadu" />
+
+
+	<!-- 현지 -->
+	<beans:bean class="controller.busi.MakeBusiController">
+		<beans:constructor-arg ref="busiService"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.busi.BusiHeadController">
+		<beans:constructor-arg ref="busiService"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.busi.BusiBodyController">
+		<beans:constructor-arg ref="busiService"/>
+	</beans:bean>
+	
+	<beans:bean class="controller.busi.UserController">
+		<beans:constructor-arg ref="busiService"/>
+	</beans:bean>
+	
+	
+	<!-- 희지 -->
+<!-- 	<beans:bean class="com.increpas.jaadu.HomeController">
+		<beans:constructor-arg ref="memberService"/>
+	</beans:bean> -->
+	
+	<beans:bean class="controller.member.MemberController">
+		<beans:constructor-arg ref="memberService" />
+		<beans:constructor-arg ref="usedService" />
+		<beans:constructor-arg ref="mannersService" />
+	</beans:bean>
+
+	<beans:bean class="controller.used.UsedController">
+		<beans:constructor-arg ref="usedService" />
+		<beans:constructor-arg ref="memberService" />
+		<beans:constructor-arg ref="mannersService" />
+		<beans:constructor-arg ref="u_cateService" />
+		<beans:constructor-arg ref="u_imgService" />
+		<beans:constructor-arg ref="bankService" />
+	</beans:bean>
+
+	<beans:bean class="controller.member.BankController">
+		<beans:constructor-arg ref="bankService" />
+	</beans:bean>
+	
+	
+	<!-- 새미 -->
+	<beans:bean class="controller.jobs.ApplyController">
+		<beans:constructor-arg ref="applyService" />
+		<beans:constructor-arg ref="memberService" />
+		<beans:constructor-arg ref="jperiodService" />
+		<beans:constructor-arg ref="experienceService" />
+	</beans:bean>
+	<beans:bean class="controller.jobs.ExperienceController">
+		<beans:constructor-arg ref="experienceService" />
+		<beans:constructor-arg ref="jperiodService" />
+	</beans:bean>
+	<beans:bean class="controller.jobs.JobsController">
+		<beans:constructor-arg ref="jobsService" />
+		<beans:constructor-arg ref="jcateService" />
+		<beans:constructor-arg ref="memberService" />
+		<beans:constructor-arg ref="experienceService" />
+		<beans:constructor-arg ref="applyService" />
+	</beans:bean>
+	
+	
+	<!-- 단비 -->
+	<beans:bean class="controller.login.LoginController">
+		<beans:constructor-arg ref="loginService" />
+	</beans:bean>
+	
+	<beans:bean class="controller.board.BoardController">
+		<beans:constructor-arg ref="boardService" />
+	</beans:bean>
+	
+	
+	
+	
+	
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

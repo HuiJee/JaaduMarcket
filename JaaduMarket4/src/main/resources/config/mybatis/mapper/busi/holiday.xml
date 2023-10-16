@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="holiday">
+
+	<insert id="insert" parameterType="holiday">
+		insert into HOLIDAY values(holiday_seq.nextval, #{holiday_type})
+	</insert>
+
+	<update id="update" parameterType="holiday">
+		update HOLIDAY set holiday_type = #{holiday_type} where holiday_seq = #{holiday_seq}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete HOLIDAY where holiday_seq = #{holiday_seq}
+	</delete>
+	
+	<select id="selectHoliday" resultType="holiday">
+		select * from HOLIDAY order by holiday_seq
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

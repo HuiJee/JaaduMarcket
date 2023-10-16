@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 공통 -->
+	<bean id="memberDao" class="dao.member.MemberDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="addr3Dao" class="dao.addr.Addr3DAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="dayDao" class="dao.busi.DayDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	
+	
+
+	<!-- 현지 -->
+	<bean id="busiDao" class="dao.busi.BusiDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="busi_cateDao" class="dao.busi.Busi_CateDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="b_ImgDao" class="dao.busi.B_ImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="noticeDao" class="dao.busi.NoticeDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="notice_ImgDao" class="dao.busi.Notice_ImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="holidayDao" class="dao.busi.HolidayDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+
+	<bean id="runtypeDao" class="dao.busi.RuntypeDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="hoursDao" class="dao.busi.HoursDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="productDao" class="dao.busi.ProductDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="notice_CmtDao" class="dao.busi.Notice_CmtDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="couponDao" class="dao.busi.CouponDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="b_RegularDao" class="dao.busi.B_RegularDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="coupon_DownDao" class="dao.busi.Coupon_DownDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="b_Review_ImgDao" class="dao.busi.B_Review_ImgDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="b_ReviewDao" class="dao.busi.B_ReviewDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="b_Review_KeyDao" class="dao.busi.B_Review_KeyDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+
+
+
+
+	<!-- 희지 -->
+	<bean id="mannersDao" class="dao.member.MannersDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="manners_listDao" class="dao.member.Manners_ListDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="manners_defaultDao" class="dao.member.Manners_DefaultDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="manners_degreeDao" class="dao.member.Manners_DegreeDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="bankDao" class="dao.member.BankDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="bank_accountDao" class="dao.member.Bank_AccountDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="collectionDao" class="dao.member.CollectionDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="blockDao" class="dao.member.BlockDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="key_searchlistDao" class="dao.member.Key_SearchlistDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="usedDao" class="dao.used.UsedDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="u_cateDao" class="dao.used.U_CateDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="cate_checkDao" class="dao.used.Cate_CheckDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="u_chatDao" class="dao.used.U_ChatDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="u_favDao" class="dao.used.U_FavDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="u_imgDao" class="dao.used.U_ImgDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="u_tradelistDao" class="dao.used.U_TradelistDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="addr1Dao" class="dao.addr.Addr1DAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	<bean id="addr2Dao" class="dao.addr.Addr2DAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+
+	<!-- 새미 -->
+	<bean id="applyDao" class="dao.jobs.ApplyDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="experienceDao" class="dao.jobs.ExperienceDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	<bean id="jcateDao" class="dao.jobs.J_CateDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+
+	<bean id="jperiodDao" class="dao.jobs.J_PeriodDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="jtimeDao" class="dao.jobs.J_TimeDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="jobsDao" class="dao.jobs.JobsDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="termsDao" class="dao.jobs.TermsDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="applicationDao" class="dao.jobs.ApplicationDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+
+	<!-- 단비 -->
+	<bean id="boardDao" class="dao.board.BoardDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+
+	<bean id="board_imgDao" class="dao.board.Board_ImgDAO">
+		<constructor-arg ref="sqlSession" />
+	</bean>
+	
+	
+	
+</beans>

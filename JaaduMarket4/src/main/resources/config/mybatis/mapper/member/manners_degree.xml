@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manners_degree">
+
+	<!-- 새미 -->
+	<insert id="InsertDegree" parameterType="manners_degree">
+		insert into manners_degree values (manners_degree_seq.nextval,#{m_seq},36.5)
+	</insert>
+	
+	<!-- 희지 -->
+	<update id="update" parameterType="int">
+		update manners_degree set manners_degree_sum = 36.5
+		+ (select nvl(sum(manners_point),0) from manners_list l, manners m where receive_seq=#{m_seq} and m.manners_seq=l.manners_seq)
+		+ (select nvl(sum(manners_point),0) from manners_default d, manners m where seller_seq=#{m_seq} and m.manners_seq=d.manners_seq)
+		where m_seq=#{m_seq}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

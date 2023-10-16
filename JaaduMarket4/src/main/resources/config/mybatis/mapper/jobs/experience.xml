@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="experience">
+
+<insert id="insert" parameterType="experience">
+   insert into experience values (experience_seq.nextval, #{m_seq}, #{j_place}, #{j_year}, #{j_period}, #{j_details})
+</insert>
+
+<update id="updateOne" parameterType="experience">
+    UPDATE EXPERIENCE
+    SET j_place = #{j_place}, j_year = #{ j_year}, j_period = #{j_period}, j_details = #{j_details}
+    WHERE experience_seq = #{experience_seq}
+</update>
+
+<delete id="delete" parameterType="int">
+    DELETE FROM experience
+    WHERE m_seq = #{m_seq}
+</delete>
+
+<delete id="deleteOne" parameterType="int">
+    DELETE FROM experience
+    WHERE experience_seq = #{experience_seq}
+</delete>
+<!-- 멤버의 경험 리스트 -->
+<select id="selectOne" parameterType="int" resultType="experience">
+    select * from experience WHERE  m_seq = #{m_seq}
+</select>
+
+<select id="expOne" parameterType="int" resultType="experience">
+    select * from experience WHERE  experience_seq = #{experience_seq}
+</select>
+
+<select id="selectList" resultType="experience">
+    SELECT * FROM EXPERIENCE
+</select>
+
+<select id = "getCount" parameterType="int" resultType="int">
+
+select count(*) from experience where m_seq=#{m_seq}
+
+</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

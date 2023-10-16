@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="key_searchlist">
+
+	<insert id="insert" parameterType="key_searchlist">
+		insert into key_searchlist values(key_searchlist_seq.nextval,
+			<if test = "m_seq == null">
+				null
+			</if>
+			<if test="m_seq != null">
+				#{m_seq}
+			</if>
+		, #{key_name}, sysdate)
+	</insert>
+	
+	<!-- 나의 검색 내역 -->
+	<select id="myKey" parameterType="int" resultType="String">
+		select * from
+			(select key_name
+			from (select row_number() over (partition by key_name order by search_date desc) rn, key_name, search_date
+					from key_searchlist where m_seq=#{m_seq})
+			where rn = 1
+			order by to_char(search_date, 'yyyy-mm-dd hh24:mi:ss') desc)
+        <![CDATA[
+			where rownum <=5
+		]]>  
+	</select>
+	
+	<!-- 메인 화면 / 로그인 안하면 보여줄 키워드(전체 7개) -->
+	<select id="topKey" resultType="String">
+		select key_name from
+			(select key_name, count(*) cnt from key_searchlist group by key_name order by cnt desc, key_name asc)
+		<![CDATA[
+			where rownum <=7
+		]]>
+	</select>
+	
+	<!-- 오늘의 키워드 순위(15개) -->
+	<select id="keyRanking" resultType="String">
+		select key_name from
+			(select key_name, count(*) cnt from key_searchlist 
+			where trunc(search_date) = trunc(SYSDATE) group by key_name order by cnt desc, key_name asc)
+		<![CDATA[
+			where rownum <=15
+		]]> 
+	</select>
+	
+	<!-- 같은 검색어 있는지 여부 -->
+	<select id="sameKey" parameterType="key_searchlist" resultType="int">
+		select count(*) from key_searchlist where m_seq=#{m_seq} and key_name=#{key_name}
+	</select>
+	
+	<!-- 검색 일자 변경 -->
+	<update id="keyDate" parameterType="key_searchlist">
+		update key_searchlist set search_date=sysdate where m_seq=#{m_seq} and key_name=#{key_name}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

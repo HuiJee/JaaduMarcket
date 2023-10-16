@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<typeAliases>
+	
+		<!-- 공통 -->
+		<typeAlias type="vo.member.MemberVO" alias="member"/>
+		
+		<typeAlias type="vo.addr.Addr1VO" alias="addr1"/>
+		<typeAlias type="vo.addr.Addr2VO" alias="addr2"/>
+		<typeAlias type="vo.addr.Addr3VO" alias="addr3" />
+	
+		<typeAlias type="vo.busi.DayVO" alias="day"/>
+		
+		
+		<!-- 현지 -->
+		<typeAlias type="vo.busi.Alert_RegularVO" alias="alert_regular"/>
+		<typeAlias type="vo.busi.Busi_CateVO" alias="busi_cate"/>
+		<typeAlias type="vo.busi.BusiVO" alias="busi"/>
+		<typeAlias type="vo.busi.Coupon_DownVO" alias="coupon_down"/>
+		<typeAlias type="vo.busi.CouponVO" alias="coupon"/>
+		<typeAlias type="vo.busi.HolidayVO" alias="holiday"/>
+		<typeAlias type="vo.busi.HoursVO" alias="hours"/>
+		<typeAlias type="vo.busi.Notice_CmtVO" alias="notice_cmt"/>
+		<typeAlias type="vo.busi.Notice_ImgVO" alias="notice_img"/>
+		<typeAlias type="vo.busi.NoticeVO" alias="notice"/>
+		<typeAlias type="vo.busi.Product_ImgVO" alias="product_img"/>
+		<typeAlias type="vo.busi.ProductVO" alias="product"/>
+		<typeAlias type="vo.busi.RuntypeVO" alias="runtype"/>
+		<typeAlias type="vo.busi.B_FavVO" alias="b_fav"/>
+		<typeAlias type="vo.busi.B_ImgVO" alias="b_img"/>
+		<typeAlias type="vo.busi.B_RegularVO" alias="b_regular"/>
+		<typeAlias type="vo.busi.B_Review_KeyVO" alias="b_review_key"/>
+		<typeAlias type="vo.busi.B_ReviewVO" alias="b_review"/>
+		<typeAlias type="vo.busi.B_Review_ImgVO" alias="b_review_img"/>
+		<typeAlias type="vo.busi.B_ReviewVO" alias="b_review"/>
+		<typeAlias type="vo.busi.B_Review_KeyVO" alias="b_review_key"/>
+		
+		
+		
+		
+		<!-- 희지 -->
+		<typeAlias type="vo.used.UsedVO" alias="used" />
+		<typeAlias type="vo.used.U_CateVO" alias="u_cate" />
+		<typeAlias type="vo.used.U_ChatVO" alias="u_chat" />
+		<typeAlias type="vo.used.U_ImgVO" alias="u_img" />
+		<typeAlias type="vo.used.U_FavVO" alias="u_fav" />
+		<typeAlias type="vo.used.U_TradelistVO" alias="u_tradelist" />
+		<typeAlias type="vo.used.Cate_CheckVO" alias="cate_check" />
+		<typeAlias type="vo.used.Cate_ChoiceVO" alias="cate_choice" />
+	
+		<typeAlias type="vo.member.Bank_AccountVO" alias="bank_account" />
+		<typeAlias type="vo.member.BankVO" alias="bank" />
+		<typeAlias type="vo.member.BlockVO" alias="block" />
+		<typeAlias type="vo.member.Manners_DegreeVO" alias="manners_degree" />
+		<typeAlias type="vo.member.Manners_DefaultVO" alias="manners_default" />
+		<typeAlias type="vo.member.MannersVO" alias="manners" />
+		<typeAlias type="vo.member.Manners_ListVO" alias="manners_list" />
+		<typeAlias type="vo.member.Key_SearchlistVO" alias="key_searchlist" />
+
+
+
+
+		<!-- 새미 -->
+		<typeAlias type="vo.jobs.ApplyVO" alias="apply" />
+		<typeAlias type="vo.jobs.ExperienceVO" alias="experience" />
+		<typeAlias type="vo.jobs.J_CateVO" alias="jcate" />
+		<!-- <typeAlias type="vo.jobs.J_FavVO" alias="jfav" /> -->
+		<typeAlias type="vo.jobs.J_PeriodVO" alias="jperiod" />
+		<typeAlias type="vo.jobs.J_TimeVO" alias="jtime" />
+		<typeAlias type="vo.jobs.JobsVO" alias="jobs" />
+		<typeAlias type="vo.jobs.TermsVO" alias="terms" />
+		<typeAlias type="vo.jobs.ApplicationVO" alias="app" />
+		
+
+
+		<!-- 단비 -->
+		<typeAlias type="vo.board.BoardVO" alias="board" />
+		<typeAlias type="vo.board.Board_ImgVO" alias="board_img" />
+
+	</typeAliases>
+
+
+
+
+
+
+
+
+	<mappers>
+		<!-- 공통 -->
+		<mapper resource="config/mybatis/mapper/member/member.xml"/>
+		
+		<mapper resource="config/mybatis/mapper/addr/addr1.xml"/>
+		<mapper resource="config/mybatis/mapper/addr/addr2.xml"/>
+		<mapper resource="config/mybatis/mapper/addr/addr3.xml"/>
+		
+		<mapper resource="config/mybatis/mapper/busi/day.xml"/>
+		
+		
+		<!-- 현지 -->
+		<mapper resource="config/mybatis/mapper/busi/busi_cate.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/busi.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/coupon_down.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/coupon.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/holiday.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/hours.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/notice_cmt.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/notice_img.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/notice.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/product_img.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/product.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/runtype.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_fav.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_img.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_regular.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_review_img.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_review.xml"/>
+		<mapper resource="config/mybatis/mapper/busi/b_review_key.xml"/>
+
+
+
+
+		<!-- 희지 -->
+		<mapper resource="config/mybatis/mapper/used/used.xml" />
+		<mapper resource="config/mybatis/mapper/used/cate_check.xml" />
+		<mapper resource="config/mybatis/mapper/used/cate_choice.xml" />
+		<mapper resource="config/mybatis/mapper/used/u_cate.xml" />
+		<mapper resource="config/mybatis/mapper/used/u_chat.xml" />
+		<mapper resource="config/mybatis/mapper/used/u_img.xml" />
+		<mapper resource="config/mybatis/mapper/used/u_fav.xml" />
+		<mapper resource="config/mybatis/mapper/used/u_tradelist.xml" />
+
+		<mapper resource="config/mybatis/mapper/member/key_searchlist.xml" />
+		<mapper resource="config/mybatis/mapper/member/block.xml" />
+		<mapper resource="config/mybatis/mapper/member/collection.xml" />
+		<mapper resource="config/mybatis/mapper/member/manners.xml" />
+		<mapper resource="config/mybatis/mapper/member/manners_default.xml" />
+		<mapper resource="config/mybatis/mapper/member/manners_degree.xml" />
+		<mapper resource="config/mybatis/mapper/member/manners_list.xml" />
+		<mapper resource="config/mybatis/mapper/member/bank.xml" />
+		<mapper resource="config/mybatis/mapper/member/bank_account.xml" />
+
+
+		<!-- 새미 -->
+		<mapper resource="config/mybatis/mapper/jobs/apply.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/experience.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/j_cate.xml" />
+		<!-- <mapper resource="config/mybatis/mapper/jobs/j_fav.xml" /> -->
+		<mapper resource="config/mybatis/mapper/jobs/j_period.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/j_time.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/jobs.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/terms.xml" />
+		<mapper resource="config/mybatis/mapper/jobs/application.xml" />
+
+
+		<!-- 단비 -->
+		<mapper resource="config/mybatis/mapper/board/board.xml" />
+		<mapper resource="config/mybatis/mapper/board/board_img.xml" />
+		
+		
+		
+		
+	</mappers>
+</configuration>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jobs">
+
+	<insert id="insertJob" parameterType="jobs">
+		insert into jobs (j_seq,
+		m_seq, j_cate_seq1, j_cate_seq2, j_cate_seq3,
+		j_title, j_name, j_tel,
+		j_tel_status, addr3_no, addr_details, j_long,
+		j_start, j_finish, j_pay,
+		j_details, j_time_nego, j_date, j_img,j_hit)
+		values
+		(#{j_seq}, #{m_seq}, #{j_cate_seq1}, #{j_cate_seq2}, #{j_cate_seq3},
+		#{j_title}, #{j_name}, #{j_tel}, #{j_tel_status}, #{addr3_no},
+		#{addr_details},
+		#{j_long},#{j_start}, #{j_finish}, #{j_pay},
+		#{j_details}, #{j_time_nego}, sysdate,
+		#{j_img},0)
+	</insert>
+
+	<update id="updateJob" parameterType="jobs">
+		update jobs set j_cate_seq1
+		= #{j_cate_seq1}, j_cate_seq2 =
+		#{j_cate_seq2},j_cate_seq3 =
+		#{j_cate_seq3},
+		j_title=#{j_title},
+		j_name=#{j_name},
+		j_tel=#{j_tel},j_tel_status=#{j_tel_status},
+		addr3_no=#{addr3_no},
+		addr_details=#{addr_details},j_long=#{j_long},
+		j_start=#{j_start},
+		j_finish=#{j_finish}, j_pay=#{j_pay},
+		j_details=#{j_details},
+		j_time_nego=#{j_time_nego}, j_img=#{j_img,
+		jdbcType=VARCHAR}
+		where
+		j_seq=#{j_seq}
+	</update>
+
+	<update id="readCount" parameterType="int">
+		update jobs set j_hit =
+		j_hit+1 where j_seq=#{j_seq}
+	</update>
+
+
+	<insert id="insertJ_seq" parameterType="jobs">
+
+		insert into
+		jobs(j_seq,j_cate_seq) values(j_seq.nextval,#{j_cate_seq})
+	</insert>
+	<!-- 공고게시물 필터로 검색 -->
+	<!-- 주소 -->
+	<select id="JobAddList" resultType="jobs" parameterType="int">
+		SELECT *
+		FROM JOBS WHERE ADDR3_NO = #{ADDR3_NO}
+	</select>
+	<!-- 단기 -->
+	<select id="JobShortList" resultType="jobs" parameterType="int">
+		SELECT * FROM JOBS WHERE J_LONG = 1
+	</select>
+
+	<!-- 하는 일 -->
+	<select id="JobCateList" resultType="jobs" parameterType="int">
+		SELECT
+		* FROM JOBS WHERE J_CATE_SEQ = #{J_CATE_SEQ}
+	</select>
+
+	<!--이미지테이블 추가 시 j_seq 필요함으로 따로 select -->
+	<select id="getJSeq" resultType="int">
+		select j_seq.nextval from dual
+	</select>
+
+	<select id="selectList" resultType="jobs">
+		select j.*,a1.addr1_name as
+		addr1_name , a2.addr2_name as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where a1.addr1_no =
+		a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no
+	</select>
+
+	<!-- 해당회원이 작성한 공고 조회 and 구인중 -->
+	<select id="getJobMember" resultType="jobs" parameterType="int">
+		select j.*,a1.addr1_name as addr1_name , a2.addr2_name as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j.m_seq=#{m_seq} and j_done not in(1,2) order by
+		j_seq desc
+	</select>
+	<!-- 해당회원이 작성한 공고 조회 and 구인중 -->
+	<select id="getJobMember1" resultType="jobs" parameterType="int">
+		select j.*,a1.addr1_name as addr1_name , a2.addr2_name as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j.m_seq=#{m_seq} and j_done=1 order by
+		j_seq desc
+	</select>
+	<!-- 해당회원이 작성한 공고 조회 and 거절 -->
+	<select id="getJobMember3" resultType="jobs" parameterType="int">
+		select j.*,a1.addr1_name as addr1_name , a2.addr2_name as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j.m_seq=#{m_seq} and j_done=3 order by
+		j_seq desc
+	</select>
+
+	<!-- 해당회원이 작성한 공고 조회 and 삭제 -->
+	<select id="getJobMemberDelete" resultType="jobs"
+		parameterType="int">
+		select j.*,a1.addr1_name as addr1_name , a2.addr2_name
+		as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2,
+		addr3 a3,jobs j
+		where a1.addr1_no = a2.addr1_no and a2.addr2_no =
+		a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j.m_seq=#{m_seq} and
+		j_done = 2
+	</select>
+
+
+	<!-- 해당 회원 제외 모든 공고 조회 and 구인중(전체) -->
+	<select id="outOFMember" resultType="jobs" parameterType="map">
+		select
+		* from
+		(select rownum rn, t.* from
+		(select
+		j.*,
+		a1.addr1_name as addr1_name,a2.addr2_name as addr2_name
+		,a3.addr3_name
+		as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where
+		a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j_done not in(1,2) and j.m_seq!=#{m_seq}
+		<if test="type != null">
+			and ${type} like '%${word}%'
+		</if>
+		order by j.j_seq)t)
+		<![CDATA[where rn >=#{first} and rn <=#{last}
+		]]>
+
+	</select>
+
+	<!-- 본인 제외 공고 게시글(구인중)개수 -->
+	<select id="getTotal" resultType="int" parameterType="map">
+		select count(*) 
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where
+		a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j_done not in(1,2) and j.m_seq!=#{m_seq} 
+		<if test="type != null">
+			and ${type} like '%${word}%'
+		</if>
+	</select>
+	
+	<!-- 해당 회원 제외 모든 공고 조회 and 구인중(단기) -->
+	<select id="outOFMemberShort" resultType="jobs" parameterType="map">
+		select
+		* from
+		(select rownum rn, t.* from
+		(select
+		j.*,
+		a1.addr1_name as addr1_name,a2.addr2_name as addr2_name
+		,a3.addr3_name
+		as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where
+		a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j_done not in(1,2) and j.m_seq!=#{m_seq} and j.j_long=1
+		<if test="type != null">
+			and ${type} like '%${word}%'
+		</if>
+		order by j.j_seq)t)
+		<![CDATA[where rn >=#{first} and rn <=#{last}
+		]]>
+
+	</select>
+	
+		<!-- 본인 제외 공고 게시글(구인중)개수 단기 -->
+	<select id="getTotalShort" resultType="int" parameterType="map">
+		select count(*) 
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where
+		a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j_done not in(1,2) and j.m_seq!=#{m_seq} and j.j_long=1
+		<if test="type != null">
+			and ${type} like '%${word}%'
+		</if>
+	</select>
+
+
+
+
+	<!-- 게시물 상태 업데이트 -->
+	<update id="statusChange" parameterType="jobs">
+
+		update jobs set j_done
+		=#{j_done} where j_seq=#{j_seq}
+
+	</update>
+
+	<select id="getJobsOne" resultType="jobs" parameterType="int">
+
+		select *
+		from jobs where j_seq = #{j_seq}
+	</select>
+
+
+	<select id="AllJobsOne" resultType="jobs" parameterType="int">
+		select
+		j.*,a1.addr1_name as addr1_name , a2.addr2_name as addr2_name
+		,a3.addr3_name as addr3_name
+		from addr1 a1, addr2 a2, addr3 a3,jobs j
+		where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and
+		a3.addr3_no = j.addr3_no and j_seq= #{j_seq}
+	</select>
+
+	<!--선택한 하는일 조회 -->
+	<select id="CateName" resultType="jobs">
+		select jc.j_cate_name from jobs
+		j, j_cate jc where j_seq = #{j_seq} and (
+		j.j_cate_seq1 = jc.j_cate_seq
+		or j.j_cate_seq2 = jc.j_cate_seq
+		or j.j_cate_seq3 = jc.j_cate_seq)
+	</select>
+
+	<select id="myJobCount" resultType="int" parameterType="int">
+		select
+		count(*) from jobs where m_seq=#{m_seq} and j_done=0
+	</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

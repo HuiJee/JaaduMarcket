@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice_img">
+
+	<insert id="insert" parameterType="notice_img">
+		insert into NOTICE_IMG values(notice_img_seq.nextval, #{notice_seq}, #{notice_img_name}, 0)
+	</insert>
+	
+	<update id="update" parameterType="notice_img">
+		update NOTICE_IMG set notice_img_name = #{notice_img_name} where notice_img_seq = #{notice_img_seq}
+	</update>
+	
+	<delete id="deleteNotice_Img" parameterType="int">
+		delete NOTICE_IMG where notice_seq = #{notice_seq}
+	</delete>
+	
+	<select id="selectNotice_Img_List" resultType="String" parameterType="int">
+		select notice_img_name from NOTICE_IMG where notice_seq = #{notice_seq}
+	</select>
+	
+	<select id="selectNotice_Img" resultType="notice_img" parameterType="int">
+		select * from NOTICE_IMG where notice_seq = #{notice_seq}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

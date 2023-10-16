@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+	<insert id="insert" parameterType="notice">
+		insert into NOTICE values(notice_seq.nextval, #{busi_seq}, #{notice_title}, #{notice_content}, SYSDATE, 0)
+	</insert>
+
+	<update id="update" parameterType="notice">
+		update NOTICE set notice_title = #{notice_title}, notice_content = #{notice_content} where notice_seq = #{notice_seq}
+	</update>
+
+	<update id="updateViews" parameterType="int">
+		update NOTICE set notice_views = notice_views + 1 where notice_seq = #{notice_seq}
+	</update>
+
+	<delete id="deleteNotice" parameterType="int">
+		delete NOTICE where notice_seq = #{notice_seq}
+	</delete>
+	
+	<select id="selectOneForUpdate" parameterType="int" resultType="notice">
+		select notice_title, notice_content from NOTICE where notice_seq = #{notice_seq} 
+	</select>
+	
+	<select id="selectNoticeList" resultType="notice" parameterType="int">
+		<!-- select N.notice_seq, B.busi_img, B.busi_name, B.addr3_no, N.notice_date, N.notice_title, N.notice_content, NI.notice_img_name from BUSI B, NOTICE N, NOTICE_IMG NI where N.busi_seq = B.busi_seq and N.notice_seq = NI.notice_seq and B.busi_seq = #{busi_seq} order by N.notice_seq desc -->
+		select N.notice_seq, B.busi_img, B.busi_name, B.addr3_no, N.notice_date, N.notice_title, N.notice_content from BUSI B, NOTICE N where N.busi_seq = B.busi_seq and B.busi_seq = #{busi_seq} order by N.notice_seq desc
+		
+	</select>
+
+	<select id="selectNotice" resultType="notice" parameterType="int">
+		select B.busi_img, B.busi_name, B.addr3_no, N.notice_seq, N.notice_title, N.notice_date, N.notice_content, N.notice_views from BUSI B, NOTICE N where N.busi_seq = B.busi_seq and N.notice_seq = #{notice_seq}
+	</select>
+	
+	<select id="maxNotice_Seq" resultType="int">
+		select max(notice_seq) from NOTICE
+	</select>
+	
+	<select id="selectNoticeFour" resultType="notice" parameterType="int">
+		select * from 
+			(select rownum rn, t.* from 
+				(select N.notice_seq, B.busi_img, B.busi_name, B.addr3_no, N.notice_date, N.notice_title, N.notice_content from BUSI B, NOTICE N
+				 where N.busi_seq = B.busi_seq and B.busi_seq = #{busi_seq} order by N.notice_seq desc) t)
+				 <![CDATA[where rn >= 1 and rn <= 4]]>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

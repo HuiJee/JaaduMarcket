@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_fav">
+
+	<!-- 관심 게시물 등록 -->
+	<insert id="insert" parameterType="u_fav">
+		insert into u_fav values(u_fav_seq.nextval, #{m_seq}, #{u_seq})
+	</insert>
+	
+	<!-- 관심 게시물 중복 불가 -->
+	<select id="checkFav" parameterType="u_fav" resultType="u_fav">
+		select * from u_fav where m_seq=#{m_seq} and u_seq=#{u_seq}
+	</select>
+	
+	<!-- 관심 게시물 해제 -->
+	<delete id="delete" parameterType="u_fav">
+		delete u_fav where u_seq=#{u_seq} and m_seq=#{m_seq}
+	</delete>
+	
+	<!-- 관심 게시물 리스트(join) 컨텐츠 리스트 중에서 seq 동일 여부만 선택하면 될듯!-->
+	<select id="favCount" resultType="int" parameterType="int">
+		select count(*) from u_fav where u_seq=#{u_seq}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

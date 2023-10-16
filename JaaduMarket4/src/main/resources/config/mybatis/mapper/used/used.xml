@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="used">
+
+	<!-- 중고거래 게시물 입력 -->
+	<insert id="insert" parameterType="used">
+		insert into used 
+		values(u_seq.nextval, #{m_seq}, #{u_title}, #{u_cate_seq}, 
+		
+		<if test="cate_check_name == null">
+			null,
+		</if>
+		<if test="cate_check_name != null">
+			#{cate_check_name},
+		</if>
+		<if test="cate_input == null">
+			null,
+		</if>
+		<if test="cate_input != null">
+			#{cate_input},
+		</if>
+		
+		 #{u_content}, #{u_price}, #{u_share}, 0, 0, sysdate, null, 0, #{u_addr_main}, #{u_addr_sub})
+	</insert>
+	
+	<!-- 게시물 내용 전체 -->
+	<select id="getOne" parameterType="int" resultType="used">
+		select * from used where u_seq=#{u_seq}
+	</select>
+
+	<!-- 클릭하면 세부화면 -->
+	<select id="selectOne" resultType="used" parameterType="int">
+		select u.*, m.m_nickname, m.m_img, a.addr3_name, d.manners_degree_sum, u.u_cate_seq, c.u_cate_name
+		
+		from used u, addr3 a, member m, manners_degree d, u_cate c
+		
+		where u.u_seq=#{u_seq} and u.m_seq=m.m_seq and m.addr3_no=a.addr3_no and m.m_seq=d.m_seq and u.u_cate_seq=c.u_cate_seq
+	</select>
+	
+	<!-- 채팅용 -->
+	<select id="selectOnly" resultType="used" parameterType="int">
+	select u.*, i.u_img_name, m.m_nickname, a.addr3_name, d.manners_degree_sum, u.u_cate_seq, c.u_cate_name
+		
+		from used u, addr3 a, member m, manners_degree d, u_cate c, u_img i
+		
+		where u.u_seq=#{u_seq} and u.m_seq=m.m_seq and m.addr3_no=a.addr3_no and m.m_seq=d.m_seq and u.u_cate_seq=c.u_cate_seq and i.u_seq(+)= u.u_seq
+		and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+	</select>
+
+
+	<!-- 중고거래 게시글 수정 -->
+	<update id="update" parameterType="used">
+		update used set
+		u_title=#{u_title}, u_cate_seq=#{u_cate_seq},
+		
+		<if test="cate_check_name != null">
+			cate_check_name = #{cate_check_name},
+		</if>
+		
+		<if test="cate_input != null">
+			cate_input = #{cate_input},
+		</if>
+	
+		u_content=#{u_content}, u_price=#{u_price}, u_share=#{u_share}, u_addr_main=#{u_addr_main}
+		
+		
+		, u_addr_sub=#{u_addr_sub} where u_seq=#{u_seq}
+	</update>
+
+	<!-- 조회수 증가 -->
+	<update id="plusHit" parameterType="int">
+		update used set
+		u_views=u_views+1 where u_seq=#{u_seq}
+	</update>
+
+	<!-- 판매 완료 -->
+	<update id="sell" parameterType="int">
+		update used set u_trade_status=1 where u_seq=#{u_seq}
+	</update>
+	
+	<!-- 예약 -->
+	<update id="reserve" parameterType="int">
+		update used set u_trade_status=3 where u_seq=#{u_seq}
+	</update>	
+	
+	<!-- 예약 또는 판매 취소-->
+	<update id="noSell" parameterType="int">
+		update used set u_trade_status=0 where u_seq=#{u_seq}
+	</update>	
+
+	<!-- 삭제는 많은 게 걸려있음 (우선 판매완료 상태로) -->
+	<update id="delete" parameterType="int">
+		update used set u_trade_status=2 where u_seq=#{u_seq}
+	</update>
+
+	<!-- max seq 뽑기 -->
+	<select id="maxSeq" resultType="int">
+		select max(u_seq) from used
+	</select>
+	
+	<!-- 판매여부 뽑기 -->
+	<select id="checkSell" parameterType="int" resultType="int">
+		select u_trade_status from used where u_seq=#{u_seq}
+	</select>
+	
+	<!-- 인기 게시물 -->
+     <select id="topSelect" resultType="used">
+          select * from
+            (select rownum rn, t.*  from
+                (select i.u_img_name, u.*, a1.addr1_name, a2.addr2_name, a3.addr3_name, 
+                    (select count(*) from u_fav where u_seq = u.u_seq) fav_count 
+                from u_img i, used u, addr1 a1, addr2 a2, addr3 a3, member m
+                where i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq and m.addr3_no=a3.addr3_no and a3.addr2_no=a2.addr2_no and a3.addr1_no=a1.addr1_no and u.u_trade_status != '2'
+                  and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+                order by case when u.u_boost is null then u_date else u.u_boost end desc)t)
+        <![CDATA[
+         where rn <=9
+      ]]>     
+     </select>
+     
+     
+
+	<select id="selectList" resultType="used" parameterType="map">
+		select * from
+			(select rownum rn, t.* from
+            	(select i.u_img_name, u.*, a1.addr1_name, a2.addr2_name, a3.addr3_name
+					, (select count(*) from u_fav where u_seq = u.u_seq) fav_count
+					, (select count(distinct m_seq) chat from u_chat where u_seq(+) = u.u_seq group by u.u_seq) chat
+		
+				from u_img i, used u, addr1 a1, addr2 a2, addr3 a3, member m
+				<if test="what != null">
+					<if test="what == 'fav'">
+						, u_fav f
+					</if>
+					<if test="what == 'collect' ">
+						, collection c
+					</if>
+				</if>
+				
+				where i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq and m.addr3_no=a3.addr3_no
+				and a3.addr2_no=a2.addr2_no and a3.addr1_no=a1.addr1_no and u.u_trade_status != '2'
+				
+				<if test="type != null">
+					<if test="type == 'key'">
+						and (u.u_content like '%${word}%' or u.u_title like '%${word}%')
+					</if>
+					<if test="type == 'addr'">
+						and (a1.addr1_name like '%${word}%' or a2.addr2_name like '%${word}%' or a3.addr3_name like '%${word}%')
+					</if>
+					<if test="type != 'key' and type != 'addr'">
+						and ${type} = #{word}
+					</if>				
+				</if>
+				
+				<if test="what != null">
+					<if test ="what == 'fav'">
+						and u.u_seq = f.u_seq
+					</if>
+					<if test="what == 'collect'">
+						and c.seller_seq = u.m_seq 
+					</if>
+				</if>
+				
+				<if test="addr1 != null">
+					and a3.addr1_no = #{addr1}
+				</if>
+				<if test="addr2 != null">
+					and a3.addr2_no = #{addr2}
+				</if>
+			and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+			order by case when u.u_boost is null then u_date else u.u_boost end desc) t)
+		<![CDATA[
+			where rn >= #{first} and rn <= #{last}
+		]]>
+	</select>
+	
+	<!-- 회원 게시물 미리보기 -->
+		<select id="selectMine" resultType="used" parameterType="int">
+		select * from
+			(select rownum rn, t.* from
+            	(select i.u_img_name, u.*, a1.addr1_name, a2.addr2_name, a3.addr3_name, 
+					(select count(*) from u_fav where u_seq = u.u_seq) fav_count
+					, (select count(distinct m_seq) chat from u_chat where u_seq(+) = u.u_seq group by u.u_seq) chat
+		
+				from u_img i, used u, addr1 a1, addr2 a2, addr3 a3, member m
+		
+				where u.m_seq = #{m_seq} and i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq and m.addr3_no=a3.addr3_no
+				and a3.addr2_no=a2.addr2_no and a3.addr1_no=a1.addr1_no and u.u_trade_status != '2'
+				
+			and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+			order by case when u.u_boost is null then u_date else u.u_boost end desc) t)
+		<![CDATA[
+			where rn <=6
+		]]>
+	</select>
+	
+
+	<!-- 페이지 개수 -->
+	<select id="allCount" resultType="int">
+		select count(*) from used
+	</select>
+	
+	<select id="someCount" parameterType="map" resultType="int">
+	select count(*) 
+	from used u, u_img i, member m, addr3 a3, addr2 a2, addr1 a1
+	<if test="what != null">
+		<if test="what == 'fav'">
+			, u_fav f
+		</if>
+		<if test="what == 'collect' ">
+			, collection c
+		</if>
+	</if>
+
+	where i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq
+	and m.addr3_no=a3.addr3_no and a3.addr2_no=a2.addr2_no and
+	a3.addr1_no=a1.addr1_no and u.u_trade_status != '2'
+
+	<if test="type != null">
+		<if test="type == 'key'">
+			and (u.u_content like '%${word}%' or u.u_title like '%${word}%')
+		</if>
+		<if test="type == 'addr'">
+			and (a1.addr1_name like '%${word}%' or a2.addr2_name like '%${word}%' or a3.addr3_name like '%${word}%')
+		</if>
+		<if test="type != 'key' and type != 'addr'">
+			and ${type} = #{word}
+		</if>
+	</if>
+
+	<if test="what != null">
+		<if test="what == 'fav'">
+			and u.u_seq = f.u_seq
+		</if>
+		<if test="what == 'collect'">
+			and c.seller_seq = u.m_seq
+		</if>
+	</if>
+	
+	<if test="addr1 != null">
+		and a3.addr1_no = #{addr1}
+	</if>
+	<if test="addr2 != null">
+		and a3.addr2_no = #{addr2}
+	</if>
+	
+		and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+	</select>
+	
+	<select id="checkBoost" parameterType="int" resultType="int">
+		 select count(*) from used where u_seq =#{u_seq} and trunc(coalesce(u_boost, to_date('0001-01-01', 'YYYY-MM-DD'))) = trunc(sysdate)
+	</select>
+	
+	<update id="boost" parameterType="int">
+		update used set u_boost=sysdate, u_boost_count=(u_boost_count+1) where u_seq=#{u_seq}
+	</update>
+	
+	<select id="myBuyCount" parameterType="int" resultType="int">
+		select count(*)
+	
+		from u_img i, used u, addr1 a1, addr2 a2, addr3 a3, member m, u_tradelist t
+	
+		where u.m_seq =t.seller_seq and t.buyer_seq=2 and t.u_seq=u.u_seq and t.finish_status=1
+		and i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq and m.addr3_no=a3.addr3_no
+		and a3.addr2_no=a2.addr2_no and a3.addr1_no=a1.addr1_no and u.u_trade_status =1
+		
+		and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+		order by u_tradelist_seq desc
+	</select>
+	
+	<select id="myBuy" parameterType="map" resultType="used">
+		select * from
+			(select rownum rn, n.* from
+				(select i.u_img_name, u.*, a1.addr1_name, a2.addr2_name, a3.addr3_name, 
+					(select count(*) from u_fav where u_seq = u.u_seq) fav_count, 
+					(select count(distinct m_seq) chat from u_chat where u_seq(+) = u.u_seq group by u.u_seq) chat
+	
+				from u_img i, used u, addr1 a1, addr2 a2, addr3 a3, member m, u_tradelist t
+	
+				where u.m_seq =t.seller_seq and t.buyer_seq=#{word} and t.u_seq=u.u_seq and t.finish_status=1
+				and i.u_seq(+)=u.u_seq and u.m_seq = m.m_seq and m.addr3_no=a3.addr3_no
+				and a3.addr2_no=a2.addr2_no and a3.addr1_no=a1.addr1_no and u.u_trade_status =1
+		
+				and (i.u_img_seq is null or i.u_img_seq in (select min(u_img_seq) from u_img group by u_seq))
+				order by u_tradelist_seq desc)n )
+			
+		<![CDATA[
+			where rn >= #{first} and rn <= #{last}
+		]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="runtype">
+
+	<insert id="insert" parameterType="runtype">
+		insert into RUNTYPE values(runtype_seq.nextval, #{runtype_name})
+	</insert>
+	
+	<update id="update" parameterType="runtype">
+		update RUNTYPE set runtype_name = #{runtype_name} where runtype_seq = #{runtype_seq}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete RUNTYPE where runtype_seq = #{runtype_seq}
+	</delete>
+	
+	<select id="selectRuntype" resultType="runtype">
+		select * from RUNTYPE order by runtype_seq
+	</select>
+	
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

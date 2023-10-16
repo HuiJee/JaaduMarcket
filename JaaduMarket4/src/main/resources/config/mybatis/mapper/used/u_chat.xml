@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_chat">
+
+	<insert id="insert" parameterType="u_chat">
+		insert into u_chat values(u_chat_seq.nextval, #{m_seq}, #{seller_seq}, #{chat_who}, #{chat_content}, sysdate, #{u_seq})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete u_chat where u_chat_seq=#{u_chat_seq}
+	</delete>
+	
+	<select id="oneChat" resultType="u_chat" parameterType="u_chat">
+		select * from u_chat where u_seq=#{u_seq} and m_seq=#{m_seq} order by chat_when asc
+	</select>
+	
+	<select id="oneCount" resultType="int" parameterType="int">
+		select count(distinct m_seq) from u_chat where u_seq=#{u_seq}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon">
+
+	<insert id="insert" parameterType="coupon">
+		insert into COUPON values(coupon_seq.nextval, #{busi_seq}, #{regular_status}, #{coupon_effect}, #{coupon_use_date}, #{coupon_limit_num}, #{coupon_info}, 0, SYSDATE)
+	</insert>
+	
+	<update id="update" parameterType="coupon">
+		update COUPON set regular_status = #{regular_status}, coupon_effect = #{coupon_effect}, coupon_use_date = #{coupon_use_date}, coupon_limit_num = #{coupon_limit_num}, coupon_info = #{coupon_info} where coupon_seq = #{coupon_seq}
+	</update>
+	
+	<update id="updateAct" parameterType="coupon">
+		update COUPON set coupon_act = #{coupon_act} where coupon_seq = #{coupon_seq}
+	</update>
+	
+	<delete id="deleteCoupon" parameterType="int">
+		delete COUPON where coupon_seq = #{coupon_seq}
+	</delete>
+	
+	<select id="selectCouponList" resultType="coupon" parameterType="int">
+		select * from COUPON where busi_seq = #{busi_seq} order by coupon_seq desc
+	</select>
+	
+	<select id="selectAvailableCouponFour" resultType="coupon" parameterType="int">
+		<!-- select * from COUPON where busi_seq = #{busi_seq} and coupon_act = 0 order by coupon_seq desc -->
+		select * from 
+			(select rownum rn, t.* from 
+   				(select * from COUPON where busi_seq = #{busi_seq} and coupon_act = 0 order by coupon_seq desc) t)
+   					<![CDATA[where rn >= 1 and rn <= 4]]>
+	</select>
+	
+	<select id="selectAvailableCoupon" resultType="coupon" parameterType="int">
+		select * from COUPON where busi_seq = #{busi_seq} and coupon_act = 0 order by coupon_seq desc
+	</select>
+	
+	<select id="selectOneCoupon" resultType="coupon" parameterType="int">
+		select * from COUPON where coupon_seq = #{coupon_seq}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

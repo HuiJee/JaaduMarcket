@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app">
+
+
+	<insert id="insert" parameterType="app">
+		insert into application values(app_seq.nextval,#{apply_seq}, #{j_seq},
+		#{m_seq},sysdate,0)
+	</insert>
+	
+	<select id="getApplication" parameterType="int" resultType="app">
+		select * from application where m_seq=#{m_seq}
+	</select>
+	<!-- 중복 지원체크 -->
+	<select id="checkDupli" parameterType="map" resultType="app">
+	 select * from application where j_seq=#{j_seq} and m_seq=#{m_seq} and app_status=0
+	 </select>
+	<!-- 구직 중 상태업데이트 -->
+	<update id="appStatus" parameterType="app" >
+	update application set app_status=#{app_status} where j_seq = #{j_seq} and app_seq=#{app_seq}
+	</update>
+	
+	
+	<!-- 지원하기 취소 제외 해당 공고게시물에 대한 지원자 수 -->
+	<select id="Count" resultType="int" parameterType="int">
+	select count(*) from application where j_seq=#{j_seq} and app_status != 2
+	</select>
+	
+	<!-- 지원하기 취소 제외 해당 회원이 지원한 지원 내역 개수 -->
+	<select id="appCount" resultType="int" parameterType="int" >
+	select count(*) from application where m_seq=#{m_seq} and app_status != 2
+	</select>
+	
+	<!--  해당 회원이 지원한 지원 내역(응답대기) 개수 -->
+	<select id="appCount0" resultType="int" parameterType="int" >
+	select count(*) from application where m_seq=#{m_seq} and app_status = 0
+	</select>
+	
+		<!--  해당 회원이 지원한 지원 내역(채용중) 개수 -->
+	<select id="appCount1" resultType="int" parameterType="int" >
+	select count(*) from application where m_seq=#{m_seq} and app_status = 1
+	</select>
+	
+			<!--  해당 회원이 지원한 지원 내역(거절) 개수 -->
+	<select id="appCount3" resultType="int" parameterType="int" >
+	select count(*) from application where m_seq=#{m_seq} and app_status = 3
+	</select>
+
+<!-- 해당 회원 지원내역 (삭제:2 제외)  조회-->
+<select id="SelectOne" resultType="app"  parameterType="int">
+select j.j_seq as j_seq, j.j_img as j_img, j.j_title as j_title ,j.j_name as j_name ,a.* from jobs j, application a
+where j.j_seq = a.j_seq and a.m_seq=#{m_seq} and app_status != 2 order by j.j_seq desc
+</select>
+
+
+<!-- 해당 회원 지원내역 (응답대기중 0 )  조회-->
+<select id="waiting" resultType="app"  parameterType="int">
+select j.j_seq as j_seq, j.j_img as j_img, j.j_title as j_title ,j.j_name as j_name ,a.* from jobs j, application a
+where j.j_seq = a.j_seq and a.m_seq=#{m_seq} and app_status = 0 order by j.j_seq desc
+</select>
+
+<!-- 해당 회원 지원내역 (채용됨 1 )  조회-->
+<select id="doneRecruit" resultType="app"  parameterType="int">
+select j.j_seq as j_seq, j.j_img as j_img, j.j_title as j_title ,j.j_name as j_name ,a.* from jobs j, application a
+where j.j_seq = a.j_seq and a.m_seq=#{m_seq} and app_status = 1 order by j.j_seq desc
+</select>
+
+<!-- 해당 회원 지원내역 (삭제 2)  조회-->
+<select id="DeleteList" resultType="app"  parameterType="int">
+select j.j_seq as j_seq, j.j_img as j_img, j.j_title as j_title ,j.j_name as j_name ,a.* from jobs j, application a
+where j.j_seq = a.j_seq and a.m_seq=#{m_seq} and app_status = 2 order by j.j_seq desc
+</select>
+
+<!-- 해당 회원 지원내역 (거절 3)  조회-->
+<select id="Rejected" resultType="app"  parameterType="int">
+select j.j_seq as j_seq, j.j_img as j_img, j.j_title as j_title ,j.j_name as j_name ,a.* from jobs j, application a
+where j.j_seq = a.j_seq and a.m_seq=#{m_seq} and app_status = 3 order by j.j_seq desc
+</select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

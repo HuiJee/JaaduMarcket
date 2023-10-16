@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hours">
+
+	<insert id="insert" parameterType="hours">
+		insert into HOURS values(hours_seq.nextval, #{busi_seq}, #{day_seq}, #{runtype_seq}, #{time1,jdbcType=VARCHAR}, #{time2,jdbcType=VARCHAR}, #{run_status})
+	</insert>
+	
+	<update id="update" parameterType="hours">
+		update HOURS set day_seq = #{day_seq}, runtype_seq = #{runtype_seq}, time1 = #{time1,jdbcType=VARCHAR}, time2 = #{time2,jdbcType=VARCHAR}, run_status = #{run_status} where hours_seq = #{hours_seq}
+	</update>
+	
+	<delete id="deleteHours" parameterType="int">
+		delete HOURS where hours_seq = #{hours_seq}
+	</delete>
+	
+	<select id="selectHours" resultType="hours" parameterType="int">
+		select * from HOURS where busi_seq = #{busi_seq} order by hours_seq
+	</select>
+	
+	
+	
+	<select id="selectHours_maxSeq" resultType="int">
+		select max(hours_seq) from HOURS
+	</select>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

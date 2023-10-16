@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="addr1">
+
+	<insert id="insert" parameterType="addr1">
+	 	insert into addr1 values(#{addr1_no}, #{addr1_name})
+	</insert>
+	
+	<update id="update" parameterType="addr1">
+		update addr1 set addr1_name = #{addr1_name} where addr1_no = #{addr1_no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete addr1 where addr1_no = #{addr1_no}
+	</delete>
+	
+	<select id="selectList" resultType="addr1">
+		select * from addr1 order by addr1_no
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

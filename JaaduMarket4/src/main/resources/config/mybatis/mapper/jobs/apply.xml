@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="apply">
+
+<insert id ="insert" parameterType="apply">
+insert into apply (apply_seq, m_seq, m_name, my_info) values (apply_seq.nextval, #{m_seq}, #{m_name}, #{my_info})
+</insert>
+<select id="selectOne" resultType="apply" parameterType="int"><!-- 자두회원 지원내역 불러오기 -->
+ select a.*, m.m_tel1, m.m_tel2, m.m_tel3, m.year, m.m_gender 
+    from apply a, member m
+    where m.m_seq = a.m_seq AND m.m_seq = #{m_seq} and a_status!=1
+</select>
+
+<select id ="CheckApply" parameterType="int" resultType="java.lang.Boolean">
+select * from apply where m_seq=#{m_seq} and a_status!=1
+</select>
+
+<select id ="getSelect" parameterType="int" resultType="apply">
+select * from apply where m_seq=#{m_seq} and a_status!=1
+</select>
+
+<update id="update" parameterType="apply" >
+update apply SET  my_info = #{my_info} WHERE m_seq= #{m_seq}
+</update>
+
+<update id="delete" parameterType="int" >
+update apply set a_status=1 where m_seq = #{m_seq}
+</update>
+
+
+<select id="getSeq" resultType="int" parameterType="int">
+select apply_seq from apply where m_seq=#{m_seq} and a_status!=1
+</select>
+
+
+<!-- 해당 공고에 지원한 지원내역(지원서정보 /지원자 지원취소 제외) -->
+<select id="ApplicantInfo2" parameterType="int" resultType="apply">
+select m.m_nickname,m.m_seq, m.m_tel1,m.m_tel2, m.m_tel3,m.email1,m.email2,
+ap.j_seq j_seq , ap.app_seq , a.apply_seq,a.m_name, a.my_info,ap.apply_date 
+FROM member m, apply a ,application ap
+where m.m_seq=a.m_seq and a.apply_seq =ap.apply_seq and ap.j_seq=#{j_seq} and ap.app_status != 2
+</select>
+
+<!-- 해당 공고에 지원한 지원내역(지원서정보 /지원자가 구인중인 상태만) -->
+<select id="ApplicantInfo" parameterType="int" resultType="apply">
+select m.m_nickname,m.m_seq, m.m_tel1,m.m_tel2, m.m_tel3,m.email1,m.email2,
+ap.j_seq j_seq , ap.app_seq , a.apply_seq,a.m_name, a.my_info,ap.apply_date 
+FROM member m, apply a ,application ap
+where m.m_seq=a.m_seq and a.apply_seq =ap.apply_seq and ap.j_seq=#{j_seq} and ap.app_status = 0
+</select>
+
+<!-- 해당 공고에 지원한 지원내역(지원서정보 /지원자 채용완료) -->
+<select id="ApplicantInfo1" parameterType="int" resultType="apply">
+select m.m_nickname,m.m_seq, m.m_tel1,m.m_tel2, m.m_tel3,m.email1,m.email2,
+ap.j_seq j_seq , ap.app_seq , a.apply_seq,a.m_name, a.my_info,ap.apply_date 
+FROM member m, apply a ,application ap
+where m.m_seq=a.m_seq and a.apply_seq =ap.apply_seq and ap.j_seq=#{j_seq} and ap.app_status = 1
+</select>
+
+<!-- 해당 공고에 지원한 지원내역(지원서정보 /거절함) -->
+<select id="ApplicantInfo3" parameterType="int" resultType="apply">
+select m.m_nickname,m.m_seq, m.m_tel1,m.m_tel2, m.m_tel3,m.email1,m.email2,
+ap.j_seq j_seq , ap.app_seq , a.apply_seq,a.m_name, a.my_info,ap.apply_date 
+FROM member m, apply a ,application ap
+where m.m_seq=a.m_seq and a.apply_seq =ap.apply_seq and ap.j_seq=#{j_seq} and ap.app_status = 3
+</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

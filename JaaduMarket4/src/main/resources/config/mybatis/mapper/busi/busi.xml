@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="busi">
+
+	<insert id="insert" parameterType="busi">
+		<!-- insert into BUSI values(busi_seq.nextval, #{m_seq}, #{busi_name}, #{busi_cate_seq}, #{busi_information}, #{busi_tel1}, #{busi_tel2}, #{busi_tel3}, #{busi_img}, #{busi_img_url}, #{addr3_no}, #{busi_addr_detail}, #{holiday_seq}, #{busi_details}, #{busi_website}, #{busi_number}, SYSDATE) -->
+		insert into BUSI(busi_seq, m_seq, busi_name, busi_cate_seq, busi_tel1, busi_tel2, busi_tel3, busi_img, addr3_no, busi_addr_detail, busi_number, busi_joindate) values(busi_seq.nextval, #{m_seq}, #{busi_name}, #{busi_cate_seq}, #{busi_tel1}, #{busi_tel2}, #{busi_tel3}, #{busi_img}, #{addr3_no}, #{busi_addr_detail}, #{busi_number}, SYSDATE)
+	</insert>
+	
+	<update id="update" parameterType="busi">
+		update BUSI set busi_information = #{busi_information}, addr3_no = #{addr3_no}, busi_addr_detail = #{busi_addr_detail}, busi_tel1 = #{busi_tel1}, busi_tel2 = #{busi_tel2}, busi_tel3 = #{busi_tel3}, holiday_seq = #{holiday_seq}, busi_details = #{busi_details}, busi_website = #{busi_website}, busi_update = SYSDATE where busi_seq = #{busi_seq}
+	</update>
+	
+	<update id="updateBusiProfile" parameterType="busi">
+		update BUSI set busi_img = #{busi_img}, busi_name = #{busi_name}, addr3_no = #{addr3_no}, busi_cate_seq = #{busi_cate_seq},  busi_update = SYSDATE where busi_seq = #{busi_seq}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete BUSI where busi_seq = #{busi_seq}
+	</delete>
+	
+	<select id="selectList" resultType="busi">
+		select B.*, A3.addr3_name, BC.busi_cate_name from BUSI B, ADDR3 A3, BUSI_CATE BC where B.addr3_no = A3.addr3_no and B.busi_cate_seq = BC.busi_cate_seq order by busi_seq
+	</select>
+
+	<select id="selectOne" resultType="busi" parameterType="int">
+		select * from BUSI where busi_seq = #{busi_seq} 
+	</select>
+	
+	<select id="maxSeq" resultType="int">
+		select max(busi_seq) from BUSI
+	</select>
+	
+	<select id="selectMyBusiList" resultType="busi" parameterType="int">
+		select * from BUSI where m_seq = #{m_seq}
+	</select>
+	
+	<select id="selectM_seqInBusi" resultType="int" parameterType="int">
+		select m_seq from BUSI where busi_seq = #{busi_seq}
+	</select>
+	
+	<select id="selectMyRegList" parameterType="int" resultType="busi">
+		select B.* from BUSI B, B_REGULAR BR, MEMBER M where B.busi_seq = BR.busi_seq and M.m_seq = #{m_seq}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from BUSI
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

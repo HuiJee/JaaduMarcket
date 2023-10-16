@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_img">
+
+	<insert id="insert" parameterType="u_img">
+		insert into u_img values(u_img_seq.nextval, #{u_seq}, #{u_img_name})
+	</insert>
+	
+	<update id="update" parameterType="u_img">
+		update u_img set u_img_name=#{u_img_name}, u_img_url=#{u_img_url}
+		where u_img_seq=#{u_img_seq}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete u_img where u_img_name=#{u_img_name}
+	</delete>
+	
+	<delete id="deleteAll" parameterType="int">
+		delete u_img where u_seq=#{u_seq}
+	</delete>
+	
+	<select id="selectAll" parameterType="int" resultType="String">
+		select u_img_name from u_img where u_seq=#{u_seq} order by u_img_seq asc
+	</select>
+	
+	<!-- 사진 중 seq 빠른 걸 main으로?? -->
+	<update id="mainMake" parameterType="int" >
+		update u_img set u_img_main=1 
+		where u_img_seq = (select min(u_img_seq) from u_img where u_seq=#{u_seq} group by u_seq)
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

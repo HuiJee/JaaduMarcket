@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cate_choice">
+
+	<insert id="insert" parameterType="cate_choice">
+		insert into cate_choice values(cate_choice_seq.nextval, #{cate_choice_num})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete cate_choice where cate_choice_seq=#{cate_choice_seq}
+	</delete>
+	
+	<select id="select" resultType="cate_choice">
+		select * from cate_choice
+	</select>
+	
+	<update id="update" parameterType="int">
+		update cate_choice set cate_choice_num=#{cate_choice_num} where cate_choice_seq=#{cate_choice_seq}
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

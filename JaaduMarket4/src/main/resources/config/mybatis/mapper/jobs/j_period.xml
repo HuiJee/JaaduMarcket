@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jperiod">
+
+<insert id="insert" parameterType="jperiod">
+  INSERT INTO J_PERIOD  VALUES (J_PERIOD_SEQ.NEXTVAL, #{period})
+</insert>
+
+<select id="selectOne" parameterType="int" resultType="jperiod">
+  SELECT * FROM J_PERIOD
+  WHERE J_PERIOD_SEQ = #{J_PERIOD_SEQ}
+</select>
+
+<select id="getList" resultType="jperiod">
+	select * from j_period
+</select>
+
+<update id="update" parameterType="int">
+  UPDATE J_PERIOD
+  SET PERIOD = #{PERIOD}
+  WHERE J_PERIOD_SEQ = #{J_PERIOD_SEQ}
+</update>
+
+<delete id="delete" parameterType="int">
+  DELETE FROM J_PERIOD
+  WHERE J_PERIOD_SEQ = #{J_PERIOD_SEQ}
+</delete>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

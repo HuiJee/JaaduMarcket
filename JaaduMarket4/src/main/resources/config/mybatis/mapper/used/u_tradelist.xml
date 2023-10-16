@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_tradelist">
+
+	<insert id="insert" parameterType="u_tradelist">
+		insert into u_tradelist values(u_tradelist_seq.nextval, #{u_seq}, #{buyer_seq}, #{seller_seq}, #{finish_status}, #{trade_type})
+	</insert>
+	
+	<!-- 해당 구매자 앞으로 예약중인 것 찾기 -->
+	<select id="myReserve" parameterType="u_tradelist" resultType="int">
+		select count(*) from u_tradelist where buyer_seq=#{buyer_seq} and u_seq=#{u_seq} and finish_status=0
+	</select>
+	
+	<!-- 판매완료 -->
+	<update id="sellFinish" parameterType="int">
+		update u_tradelist set finish_status=1 where u_seq=#{u_seq}
+	</update>
+	
+	<!-- 예약 취소 -->
+	<update id="tradeDelete" parameterType="int">
+		delete u_tradelist where u_seq=#{u_seq}
+	</update>
+	
+	<!-- 구매자 시퀀스 -->
+	<select id="whoBuy" parameterType="int" resultType="int">
+		select buyer_seq from u_tradelist where u_seq=#{u_seq}
+	</select>
+	
+	<!-- 거래 수단 -->
+	<select id="tradeType" parameterType="int" resultType="int">
+		select trade_type from u_tradelist where u_seq=#{u_seq}
+	</select>
+	
+	<!-- 구매자가 지울 경우 -->
+	<delete id="delete" parameterType="int">
+		delete u_tradelist where u_tradelist_seq=#{u_tradelist_seq}
+	</delete>
+	
+	<!-- 판매자가 게시글을 지울 경우 -->
+	<delete id="deleteAll" parameterType="int">
+		delete u_tradelist where u_seq=#{u_seq}
+	</delete>
+
+	<!-- 구매내역 select -->
+	<select id="selectList" resultType="u_tradelist">
+		select u.u_title, u.u_price, a.addr3_name
+		from used u, addr3 a, u_tradelist t, member m
+		where t.u_seq=u.u_seq and m.m_seq=t.buyer_seq and m.addr3_no=a.addr3_no
+	</select>	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_review_img">
+
+	<insert id="insert" parameterType="b_review_img">
+		insert into B_REVIEW_IMG values(b_review_img_seq.nextval, #{b_review_seq}, #{b_review_img_name})
+	</insert>
+	
+	<update id="update" parameterType="b_review_img">
+		update B_REVIEW_IMG set b_review_img_name = #{b_review_img_name} where b_review_img_seq = #{b_review_img_seq}
+	</update>
+	
+	<delete id="deleteB_ReviewImg" parameterType="int">
+		delete B_REVIEW_IMG where b_review_seq = #{b_review_seq}
+	</delete>
+	
+	<select id="selectB_ReviewImg_List" parameterType="int" resultType="b_review_img">
+		select * from B_REVIEW_IMG where b_review_seq = #{b_review_seq}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

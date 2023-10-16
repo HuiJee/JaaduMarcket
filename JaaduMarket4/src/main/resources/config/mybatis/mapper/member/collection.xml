@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="collection">
+
+	<insert id="insert" parameterType="vo.member.CollectionVO">
+		insert into collection values(collection_seq.nextval, #{m_seq}, #{seller_seq})
+	</insert>
+	
+	<delete id="delete" parameterType="vo.member.CollectionVO">
+		delete collection where m_seq=#{m_seq} and seller_seq=#{seller_seq}
+	</delete>
+	
+	<select id="checkCollec" parameterType="vo.member.CollectionVO" resultType="vo.member.CollectionVO">
+		select collection_seq from collection where m_seq=#{m_seq} and seller_seq=#{seller_seq}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

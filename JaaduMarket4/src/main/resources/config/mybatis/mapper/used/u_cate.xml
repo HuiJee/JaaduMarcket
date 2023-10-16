@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u_cate">
+
+	<insert id="insert" parameterType="u_cate">
+		insert into u_cate values(u_cate_seq.nextval, #{u_cate_name})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete u_cate where u_cate_Seq=#{u_cate_seq}
+	</delete>
+	
+	<select id="cateList" resultType="u_cate">
+		select * from u_cate order by u_cate_seq asc
+	</select>
+	
+	<update id="update" parameterType="int">
+		update u_cate set u_cate_name=#{u_cate_name} where u_cate_seq=#{u_cate_seq}
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

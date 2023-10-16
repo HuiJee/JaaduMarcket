@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_regular">
+	
+	<insert id="insert" parameterType="b_regular">
+		insert into B_REGULAR values(b_regular_seq.nextval, #{m_seq}, #{busi_seq}, 0, SYSDATE)
+	</insert>
+	
+	<update id="update" parameterType="b_regular">
+	 	update B_REGULAR set notice_status = #{notice_status} where m_seq = #{m_seq} and busi_seq = #{busi_seq}
+	</update>
+	
+	<delete id="deleteRegular" parameterType="b_regular">
+		delete B_REGULAR where m_seq = #{m_seq} and busi_seq = #{busi_seq}
+	</delete>
+	
+	<!-- <select id="selectMyRegList" parameterType="int" resultType="b_regular">
+		select B.* from BUSI B, B_REGULAR BR, MEMBER M where B.busi_seq = BR.busi_seq and BR.m_seq = #{m_seq}
+	</select> -->
+	
+	<select id="selectB_Regular_Seq" parameterType="int" resultType="int">
+		select BR.b_regular_seq from B_REGULAR BR, BUSI B, MEMBER M where B.busi_seq = #{busi_seq} and M.m_seq = #{m_seq} 
+	</select>
+	
+	<!-- <select id="selectRegular_MList">
+		select M.*, BR.regular_date from MEMBER M, B_REGULAR BR, BUSI B where B.busi_seq = #{busi_seq} and BR.m_seq = M.m_seq
+	</select> -->
+	
+	<select id="countRegular" parameterType="int" resultType="int">
+		select count(b_regular_seq) from B_REGULAR where busi_seq = #{busi_seq}
+	</select>
+	
+	<select id="isRegular" resultType="b_regular" parameterType="int">
+		select * from B_REGULAR BR, BUSI B where BR.busi_seq = B.busi_seq and BR.m_seq = #{m_seq}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

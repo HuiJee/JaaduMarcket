@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- 현지 -->
+	<bean class="service.busi.BusiService" id="busiService">
+		<constructor-arg ref="busiDao"/>
+		<constructor-arg ref="addr3Dao"/>
+		<constructor-arg ref="busi_cateDao"/>
+		<constructor-arg ref="b_ImgDao"/>
+		<constructor-arg ref="noticeDao"/>
+		<constructor-arg ref="notice_ImgDao"/>
+		<constructor-arg ref="holidayDao"/>
+		<constructor-arg ref="dayDao"/>
+		<constructor-arg ref="runtypeDao"/>
+		<constructor-arg ref="hoursDao"/>
+		<constructor-arg ref="productDao"/>
+		<constructor-arg ref="memberDao"/>
+		<constructor-arg ref="notice_CmtDao"/>
+		<constructor-arg ref="couponDao"/>
+		<constructor-arg ref="b_RegularDao"/>
+		<constructor-arg ref="coupon_DownDao"/>
+		<constructor-arg ref="b_Review_ImgDao"/>
+		<constructor-arg ref="b_ReviewDao"/>
+		<constructor-arg ref="b_Review_KeyDao"/>
+	</bean>
+	
+	
+
+	<!-- 희지 -->
+	<bean class="service.member.MemberService" id="memberService">
+		<constructor-arg ref="memberDao" />
+		<constructor-arg ref="collectionDao" />
+		<constructor-arg ref="blockDao" />
+		<constructor-arg ref="key_searchlistDao" />
+		<constructor-arg ref="addr3Dao"/>
+		
+	</bean>
+
+	<bean class="service.member.MannersService" id="mannersService">
+		<constructor-arg ref="mannersDao" />
+		<constructor-arg ref="manners_defaultDao" />
+		<constructor-arg ref="manners_listDao" />
+		<constructor-arg ref="manners_degreeDao" />
+	
+	</bean>
+
+	<bean class="service.member.BankService" id="bankService">
+		<constructor-arg ref="bankDao" />
+		<constructor-arg ref="bank_accountDao" />
+		<constructor-arg ref="memberDao" />
+	</bean>
+
+	<bean class="service.used.UsedService" id="usedService">
+		<constructor-arg ref="usedDao" />
+		<constructor-arg ref="u_chatDao" />
+		<constructor-arg ref="u_tradelistDao" />
+		<constructor-arg ref="u_favDao" />
+		<constructor-arg ref="addr1Dao"/>
+		<constructor-arg ref="addr2Dao"/>
+	</bean>
+
+	<bean class="service.used.U_CateService" id="u_cateService">
+		<constructor-arg ref="u_cateDao" />
+		<constructor-arg ref="cate_checkDao" />
+	</bean>
+
+	<bean class="service.used.U_ImgService" id="u_imgService">
+		<constructor-arg ref="u_imgDao" />
+	</bean>
+
+	<!-- 새미 -->
+	<bean class="service.jobs.ApplyService" id="applyService">
+		<constructor-arg ref="applyDao"/>
+	</bean>
+	<bean class="service.jobs.ExperienceService" id="experienceService">
+		<constructor-arg ref="experienceDao"/>
+	</bean>
+	<bean class="service.jobs.J_CateService" id="jcateService">
+		<constructor-arg ref="jcateDao"/>
+	</bean>
+	<bean class="service.jobs.J_PeriodService" id="jperiodService">
+		<constructor-arg ref="jperiodDao"/>
+	</bean>
+	<bean class="service.jobs.J_TimeService" id="jtimeService">
+		<constructor-arg ref="jtimeDao"/>
+	</bean>
+	
+	<bean class="service.jobs.JobsService" id="jobsService">
+		<constructor-arg ref="jobsDao"/>
+		<constructor-arg ref="dayDao"/>
+		<constructor-arg ref="termsDao"/>
+		<constructor-arg ref="jtimeDao"/>
+		<constructor-arg ref="applicationDao"/>
+		<constructor-arg ref="applyDao"/>
+	</bean>
+	
+
+	
+
+	<!-- 단비 -->
+	<bean class="service.login.LoginService" id="loginService">
+		<constructor-arg ref="memberDao" />
+	</bean>
+	
+	<bean class="service.board.BoardService" id="boardService">
+		<constructor-arg ref="boardDao" />
+		<constructor-arg ref="board_imgDao" />
+	</bean>
+
+
+</beans>

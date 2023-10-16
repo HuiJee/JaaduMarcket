@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="day">
+
+	<insert id="insert" parameterType="day">
+		insert into DAY values(day_seq.nextval, #{day_name})
+	</insert>
+	
+	<update id="update" parameterType="day">
+		update DAY set day_name = #{day_name} where day_seq = #{day_seq}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete DAY where day_seq = #{day_seq}
+	</delete>
+	
+	<select id="selectDayList" resultType="day">
+		select * from DAY order by day_seq
+	</select>
+	
+	<!-- <select id="selectName" resultType="String">
+		select day_name from day order by day_seq
+	</select>
+ -->
+
+	<select id="selectName" resultType="day" >
+      select day_name from day order by day_seq
+   </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board_img">
+
+	<insert id="insert" parameterType="board_img">
+		insert into BOARD_IMG values(board_img_seq.nextval, #{board_seq}, #{board_img_name})
+	</insert>
+	
+	<select id="selectBoard_ImgList" resultType="board_img" parameterType="int">
+		select * from BOARD_IMG where board_seq = #{board_seq}
+	</select>
+	
+	<select id="selectOne" resultType="board_img" parameterType="int">
+		select * from BOARD_IMG where board_img_seq = #{board_img_seq}
+	</select>
+
+	<update id="update" parameterType="board_img">
+		update BOARD_IMG set board_seq = #{board_seq}, board_img_name = #{board_img_name} where board_img_seq = #{board_img_seq}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete BOARD_IMG where board_img_seq = #{board_img_seq}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

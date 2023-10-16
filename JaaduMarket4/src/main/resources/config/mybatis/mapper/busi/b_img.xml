@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_img">
+	
+	<insert id="insert" parameterType="b_img">
+		insert into B_IMG values(b_img_seq.nextval, #{busi_seq}, #{b_img_name})
+	</insert>
+	
+	<update id="update" parameterType="b_img">
+		update B_IMG set b_img_name = #{b_img_name} where busi_seq = #{busi_seq}
+	</update>
+	
+	<delete id="deleteB_Img" parameterType="int">
+		delete B_IMG where busi_seq = #{busi_seq}
+	</delete>
+	
+	<select id="selectB_Img_Name" parameterType="int" resultType="String">
+		select b_img_name from B_IMG where busi_seq = #{busi_seq}
+	</select>
+	
+	<select id="selectImgList" parameterType="int" resultType="String">
+		select b_img_name from B_IMG where busi_seq = #{busi_seq}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

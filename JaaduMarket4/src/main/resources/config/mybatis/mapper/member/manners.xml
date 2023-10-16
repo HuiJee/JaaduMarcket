@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manners">
+
+	<select id="selectDefault" parameterType="int" resultType="manners">
+		select * from manners where manners_why=0
+	</select>
+	
+	<select id="selectList" resultType="manners">
+		select * from manners where manners_why != 0 order by manners_seq
+	</select>
+	
+	<select id="myMannersGood" resultType="manners" parameterType="int">
+		select manners_key, count(*) cnt from
+			((select m.manners_key from manners m, manners_list l 
+			where l.receive_seq=#{m_seq} and m.manners_seq = l.manners_seq and m.manners_why!=1)
+			union all
+			(select m.manners_key from manners m, manners_default d 
+			where d.seller_seq=#{m_seq} and m.manners_seq = d.manners_seq and m.manners_why!=1)) 
+			group by manners_key order by cnt desc
+	</select>
+	
+	<select id="myMannersBad" resultType="manners" parameterType="int">
+		select manners_key, count(*) cnt from
+			((select m.manners_key from manners m, manners_list l 
+			where l.receive_seq=#{m_seq} and m.manners_seq = l.manners_seq and m.manners_why=1)
+			union all
+			(select m.manners_key from manners m, manners_default d 
+			where d.seller_seq=#{m_seq} and m.manners_seq = d.manners_seq and m.manners_why=1)) 
+			group by manners_key order by cnt desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

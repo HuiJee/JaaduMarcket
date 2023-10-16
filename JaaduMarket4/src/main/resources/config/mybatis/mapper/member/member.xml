@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	
+	<!-- 희지 -->
+	<!-- mypage -->
+	<select id="selectOne" resultType="member" parameterType="int">
+		select m.*, d.manners_degree_sum, b.bank_point from member m, manners_degree d, bank_account b where m.m_seq=#{m_seq} and d.m_seq = m.m_seq and b.m_seq(+)=m.m_seq
+	</select>
+	
+	<select id="pwRight" resultType="int" parameterType="member">
+		select count(*) from member where m_seq=${m_seq} and password=#{password}
+	</select>
+	
+	<update id="delete" parameterType="int">
+		update member set m_active_status = 1 where m_seq=#{m_seq}
+	</update>
+	
+	<select id="nickname" resultType="String" parameterType="int">
+		select m_nickname from member where m_seq=#{m_seq}
+	</select>
+	
+	<select id="myCollection" parameterType="int" resultType="member">
+		 select m.m_seq, m_img, m_nickname from member m, collection c where c.m_seq =#{m_seq} and c.seller_seq = m.m_seq
+	</select>
+	
+	<select id="myBlock" parameterType="int" resultType="member">
+		select m.m_seq, m_img, m_nickname from member m, block u where buyer_seq=#{m_seq} and seller_seq=m.m_seq
+	</select>
+	
+	<update id="payStatus" parameterType="int">
+		update member set m_pay_status=1 where m_seq = #{m_seq}
+	</update> 
+	
+	<select id="payIdentity" parameterType="member" resultType="int">
+		select count(*) from member where m_id=#{m_id} and m_tel1=#{m_tel1} and m_tel2=#{m_tel2}
+		and m_tel3=#{m_tel3} and email1=#{email1} and email2=#{email2}
+	</select>
+	
+	<select id="sellerChatList" parameterType="int" resultType="member">
+		select m.m_seq, m.m_active_status, m_img, m_nickname, addr3_name, chat_content, chat_when
+		from member m, addr3 a, u_chat c
+		where c.u_seq=#{u_seq} and m.m_seq=c.m_seq and a.addr3_no =m.addr3_no 
+		and (m.m_seq, chat_when) in 
+			(select m_seq, max(chat_when) chat_when from u_chat
+			where u_seq =#{u_seq} group by m_seq)
+	</select>
+	
+	<select id="buyerChatList" parameterType="int" resultType="member">
+        select m.m_seq, m.m_active_status, m_img, m_nickname, addr3_name, chat_content, chat_when, c.u_seq, c.m_seq buyer_seq
+		from member m, addr3 a, u_chat c
+		where (m.m_seq=c.seller_seq and c.m_seq=#{seq} or m.m_seq=c.m_seq and c.seller_seq=#{seq}) and a.addr3_no =m.addr3_no 
+		and (c.u_seq, chat_when) in 
+		(select u_seq, max(chat_when) chat_when from u_chat where m_seq=#{seq} or seller_seq=#{seq}
+		group by u_seq, m_seq)
+	</select>
+	
+	
+	<!-- 새미 -->
+	<select id="getDegree" parameterType="int" resultType="java.lang.Double">
+		select manners_degree_sum from member m, manners_degree d
+		where m.m_seq = d.m_seq and d.m_seq=#{m_seq}
+	</select>
+	
+	<select id="getSeq" resultType="int">
+		select m_seq.nextval from dual
+	</select>
+	
+	<select id="checkId" parameterType="String" resultType="String">
+		select m_id from member where m_id=#{m_id}
+	</select>
+	
+	<update id="Memberupdate" parameterType="member">
+	    UPDATE member SET
+	        m_img = #{m_img},
+	        m_name = #{m_name},
+	        m_id = #{m_id},
+	        password = #{password},
+	        m_tel1 = #{m_tel1},
+	        m_tel2 = #{m_tel2},
+	        m_tel3 = #{m_tel3},
+	        email1 = #{email1},
+	        email2 = #{email2},
+	        m_gender=#{m_gender}
+	    WHERE m_seq = #{m_seq}
+	</update>
+
+	<insert id="insertMember" parameterType="member">
+  		insert into member (m_seq, m_name, m_id, m_nickname, m_tel1, m_tel2, m_tel3, password, email1, email2, addr3_no, year, month, bdate, m_gender, m_img,m_joindate,m_active_status)
+		values (#{m_seq}, #{m_name}, #{m_id}, #{m_nickname}, #{m_tel1}, #{m_tel2}, #{m_tel3}, #{password}, #{email1}, #{email2}, #{addr3_no}, #{year}, #{month}, #{bdate}, #{m_gender},#{m_img}, sysdate,0)
+	</insert>
+	
+	<select id="checkLogin" resultType="int" parameterType="member">
+		select m_seq from member where m_id=#{m_id} and password=#{password} and m_active_status !=1
+	</select>
+	
+	<update id="statusUpdate" parameterType="member" >
+		update member set m_jobs_status = #{m_jobs_status} where m_seq = #{m_seq}
+	</update>
+	
+	
+	
+	
+	
+	<!-- 현지 -->
+	
+	<select id="selectOneM" parameterType="int" resultType="member">
+		select * from MEMBER where m_seq = #{m_seq}
+	</select>
+	
+	<select id="selectRegular_MList" resultType="member" >
+		<!-- select M.*, BR.regular_date from MEMBER M, B_REGULAR BR, BUSI B where B.busi_seq = #{busi_seq} and BR.m_seq = M.m_seq -->
+		select M.m_nickname, M.m_img, M.addr3_no, BR.regular_date from MEMBER M, B_REGULAR BR, BUSI B, ADDR3 A
+			where M.addr3_no = A.addr3_no
+			and BR.m_seq = M.m_seq
+			and BR.busi_seq = B.busi_seq
+			and BR.busi_seq = #{busi_seq}
+	</select>
+
+
+
+
+	<!-- 단비 -->
+	
+	<select id="findId" resultType="String" parameterType="member">
+		select m_id from member where m_name = #{m_name} and m_tel1=#{m_tel1} and m_tel2=#{m_tel2} and m_tel3=#{m_tel3}
+	</select>
+
+	<select id ="findPw" resultType="String" parameterType="member">
+		select password from member where m_id=#{m_id} and m_name=#{m_name} and m_tel1=#{m_tel1} and m_tel2=#{m_tel2} and m_tel3=#{m_tel3}
+	</select>
+	
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

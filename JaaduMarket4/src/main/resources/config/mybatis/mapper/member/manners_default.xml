@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manners_default">
+
+	<select id="select" parameterType="manners_default" resultType="manners_default">
+		select * from manners_default where m_seq=#{m_seq} and seller_seq=#{seller_seq}
+	</select>
+	
+	<delete id="delete" parameterType="manners_default">
+		delete manners_default where m_seq=#{m_seq} and seller_seq=#{seller_seq}
+	</delete>
+	
+	<insert id="insert" parameterType="manners_default">
+		insert into manners_default values(manners_default_seq.nextval, #{m_seq}, #{seller_seq}, #{manners_seq})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon_down">
+
+	<insert id="insert" parameterType="coupon_down">
+		insert into COUPON_DOWN (coupon_down_seq, m_seq, coupon_seq, coupon_status) values(coupon_down_seq.nextval, #{m_seq}, #{coupon_seq}, 0)
+	</insert>
+
+	<update id="update" parameterType="coupon_down">
+		update COUPON_DOWN set coupon_status = #{coupon_status}, coupon_complete_date = SYSDATE where coupon_down_seq = #{coupon_down_seq}
+	</update>
+
+	<delete id="deleteCoupon_Down" parameterType="int">
+		delete COUPON_DOWN where coupon_down_seq = #{coupon_down_seq}
+	</delete>
+
+	<select id="selectCouponDownList" parameterType="int" resultType="coupon_down">
+		select CD.*, M.m_img, M.m_nickname, C.coupon_effect, C.regular_status, C.coupon_use_date, C.coupon_date from COUPON_DOWN CD, MEMBER M, COUPON C where CD.coupon_seq = C.coupon_seq and CD.m_seq = #{m_seq}
+	</select>
+	
+	<select id="selectOneCouponDown" parameterType="coupon_down" resultType="coupon_down">
+		select CD.* from COUPON_DOWN CD, COUPON C, MEMBER M where CD.m_seq = M.m_seq and CD.coupon_seq = C.coupon_seq and CD.m_seq = #{m_seq} and CD.coupon_seq = #{coupon_seq}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

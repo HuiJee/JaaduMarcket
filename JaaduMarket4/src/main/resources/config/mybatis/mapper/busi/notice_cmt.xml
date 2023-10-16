@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice_cmt">
+
+	<insert id="insert" parameterType="notice_cmt">
+		insert into NOTICE_CMT values(notice_cmt_seq.nextval, #{notice_seq}, #{m_seq}, #{cmt}, SYSDATE)
+	</insert>
+	
+	<update id="update" parameterType="notice_cmt">
+		update NOTICE_CMT set cmt = #{cmt} where notice_cmt_seq = #{notice_cmt_seq}
+	</update>
+	
+	<delete id="deleteNoticeCmtAll" parameterType="int">
+		delete NOTICE_CMT where notice_seq = #{notice_seq}
+	</delete>
+	
+	<delete id="deleteNoticeCmt" parameterType="int">
+		delete NOTICE_CMT where notice_cmt_seq = #{notice_cmt_seq}
+	</delete>
+	
+	<select id="selectCmtList" resultType="notice_cmt" parameterType="int">
+		select M.m_img, M.m_nickname, NC.cmt, NC.cmt_date from MEMBER M, NOTICE_CMT NC, NOTICE N where N.notice_seq = NC.notice_seq and M.m_seq = NC.m_seq and NC.notice_seq = #{notice_seq} order by notice_cmt_seq desc
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

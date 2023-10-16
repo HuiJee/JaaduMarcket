@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="addr3">
+
+	<insert id="insert" parameterType="addr3">
+		insert into ADDR3 values(#{addr3_no}, #{addr1_no}, #{addr2_no}, #{addr3_name}, #{code})
+	</insert>
+
+	<update id="update" parameterType="addr3">
+		update  ADDR3 set addr3_name = #{addr3_name} where addr3_no = #{addr3_no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete ADDR3 where addr3_no = #{addr3_no}
+	</delete>
+	
+	<select id="selectList" resultType="addr3">
+		select * from ADDR3 order by addr3_no
+	</select>
+	
+	<select id="searchAddr3" parameterType="String" resultType="addr3">
+		select a1.addr1_name, a2.addr2_name, a3.* from addr1 a1, addr2 a2, addr3 a3 where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and a3.addr3_name like '%${value}%'
+	</select>
+	
+	<select id="selectAddr" parameterType="int" resultType="addr3">
+		select a1.addr1_name, a2.addr2_name, a3.addr3_name from addr1 a1, addr2 a2, addr3 a3 where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and a3.addr3_no = #{addr3_no}
+	</select>
+	
+	<select id="selectAddr3_No" parameterType="String" resultType="int">
+		select addr3_no from addr3 where addr3_name = #{addr3_name}
+	</select>
+	
+	<select id="selectAddr3_Name" parameterType="int" resultType="String">
+		select addr3_name from addr3 where addr3_no = #{addr3_no}
+	</select>
+	
+	
+	<!-- 현지 -->
+	<select id="selectAddrThroughBusi_seq" parameterType="int" resultType="addr3">
+		select a1.addr1_name, a2.addr2_name, a3.addr3_name from addr1 a1, addr2 a2, addr3 a3, busi b where a1.addr1_no = a2.addr1_no and a2.addr2_no = a3.addr2_no and a3.addr3_no = b.addr3_no and b.busi_seq = #{busi_seq}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

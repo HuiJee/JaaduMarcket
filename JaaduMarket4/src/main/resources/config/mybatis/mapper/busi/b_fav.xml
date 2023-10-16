@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="b_fav">
+
+	<insert id="insert" parameterType="b_fav">
+		insert into B_FAV values(b_fav_seq.nextval, #{m_seq}, #{busi_seq})	
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete B_FAV where b_fav_seq = #{b_fav_seq}
+	</delete>
+	
+	<select id="selectList" parameterType="int" resultType="b_fav">
+		<!-- 추후 작성 -->
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
